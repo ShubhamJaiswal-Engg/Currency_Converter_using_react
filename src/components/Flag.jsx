@@ -6,7 +6,7 @@ const Flag = ({from}) => {
 
   return (
     <img
-      className='h-8 w-8 rounded-sm'
+      className='h-9 w-9 rounded-sm'
       src={`https://flagsapi.com/${countrycode}/flat/64.png`}
       alt={`${from} flag`}
       loading="lazy"
