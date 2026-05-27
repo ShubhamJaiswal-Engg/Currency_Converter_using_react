@@ -2,22 +2,36 @@ import React from 'react';
 import Flag from "./Flag"
 
 const CurrencyDropdown = ({
+    id,
     from,
     currencies,
     currency,
     setCurrency,
     title="",
 }) => {
+  const selectId = id ?? `${title}`.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+  const flagCurrency = from ?? currency;
+
   return (
     <div className='mt-1 relative'>
-      <label className='block text-sm text-gray-700 font-medium' htmlFor={title}>{title}</label>
+      <label className='block text-sm text-gray-700 font-medium' htmlFor={selectId}>{title}</label>
       <div>
-      <select value={currency} onChange={(e)=> setCurrency(e.target.value)} className='w-full p-2 border rounded-md border-gray-300 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500'>
+      <select
+        id={selectId}
+        value={currency}
+        onChange={(e)=> setCurrency(e.target.value)}
+        className='w-full mt-1 p-3 pr-12 border rounded-md border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500'
+      >
         {currencies?.map((currency)=>(
           <option value={currency} key={currency}>{currency}</option>
         ))}
       </select>
-      <button className='absolute top-4 inset-y-0 right-0 pr-5 flex items-center text-sm leading-5'><Flag from={from}/></button>
+      <span
+        className='pointer-events-none absolute inset-y-0 right-3 pr-3 pt-6 flex items-center'
+        aria-hidden="true"
+      >
+        <Flag from={flagCurrency} />
+      </span>
       </div>
     </div>
   )
